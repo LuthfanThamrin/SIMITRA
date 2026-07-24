@@ -19,7 +19,11 @@ class User extends Authenticatable implements FilamentUser
         'role',
         'kode_referral',
         'no_hp',
+        'nama_bank',
+        'no_rekening',
+        'alamat',
         'status_aktif',
+        'status_pendaftaran',
     ];
 
     protected $hidden = [
@@ -47,6 +51,38 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->role == 'admin' ;
+        if ($panel->getId() === 'admin') {
+            return $this->role === 'admin';
+        }
+
+        if ($panel->getId() === 'mitra') {
+            return $this->role === 'mitra'
+                && $this->status_aktif
+                && $this->status_pendaftaran === 'disetujui';
+        }
+
+        return false;
+    }
+
+    public function pendaftarans()
+    {
+        return $this->hasMany(Pendaftaran::class, 'mitra_id');
+    }
+
+    public function pembayaranKomisis()
+    {
+        return $this->hasMany(PembayaranKomisi::class, 'mitra_id');
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function ($user) {
+            if ($user->role === 'mitra' && empty($user->kode_referral)) {
+                do {
+                    $kode = 'MITRA-' . strtoupper(\Illuminate\Support\Str::random(5));
+                } while (self::where('kode_referral', $kode)->exists());
+                $user->kode_referral = $kode;
+            }
+        });
     }
 }

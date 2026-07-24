@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Formulir Pendaftaran INDIBIZ</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-simitra.png') }}">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -110,7 +111,7 @@
 <div class="w-full max-w-full md:max-w-[600px] lg:max-w-[700px] bg-surface rounded-xl shadow-level-1 overflow-hidden flex flex-col">
     <!-- Header Minimalis -->
     <header class="flex items-center gap-2 px-6 h-header-height border-b border-outline-variant bg-surface sticky top-0 z-10">
-        <img alt="Logo" class="h-[40px] w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLsVl0QRhM4YAAXrseb5sNpA4wV0l65Kk2RRZXoUO_uktDbzcguVi8WWBYQyNVcWP-arAUZS8QPnjUoubD74XTsRupLqptYalwzkP7KTfE6zkPz24LTktQ6vZv0XK_ACg602hLFhZ68WvZF3sxFRGjJ72gT5WVCbcdvUbOzdI59uCKkIU2x33VWhTcPkFBrCTPiaXYHnEYhitBy4TOVUpieYwCG3hCc2EVVReN31FFWwW2niTwSEQIQzdaY">
+        <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-auto object-contain">
         <span class="font-headline-md text-[24px] font-bold text-primary">SIMITRA</span>
     </header>
 
@@ -151,19 +152,34 @@
                 <h2 class="font-label-md text-primary uppercase tracking-wider mb-2 font-semibold">Data Diri &amp; Usaha</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div class="space-y-1">
-                        <label class="font-label-md text-on-surface-variant block">Nama Pemilik/Penanggung Jawab</label>
-                        <input name="nama_pemilik" value="{{ old('nama_pemilik') }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="Contoh: Ahmad Fauzi" type="text">
-                        @error('nama_pemilik') <p class="text-error text-xs">{{ $message }}</p> @enderror
-                    </div>
-                    <div class="space-y-1">
                         <label class="font-label-md text-on-surface-variant block">Nama Usaha</label>
                         <input name="nama_usaha" value="{{ old('nama_usaha') }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="Contoh: Warung Sari Rasa" type="text">
                         @error('nama_usaha') <p class="text-error text-xs">{{ $message }}</p> @enderror
                     </div>
                     <div class="space-y-1">
+                        <label class="font-label-md text-on-surface-variant block">Nama Pemilik / Penanggung Jawab (PIC)</label>
+                        <input name="nama_pemilik" value="{{ old('nama_pemilik') }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="Contoh: Ahmad Fauzi" type="text">
+                        @error('nama_pemilik') <p class="text-error text-xs">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="space-y-1">
                         <label class="font-label-md text-on-surface-variant block">Nomor HP (WhatsApp)</label>
                         <input name="no_hp" value="{{ old('no_hp') }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="08xx-xxxx-xxxx" type="tel" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         @error('no_hp') <p class="text-error text-xs">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-label-md text-on-surface-variant block">CP Alternatif <span class="text-outline font-normal">(opsional)</span></label>
+                        <input name="cp_alternatif" value="{{ old('cp_alternatif') }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="Nomor kontak cadangan" type="tel" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        @error('cp_alternatif') <p class="text-error text-xs">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="space-y-1 lg:col-span-2">
+                        <label class="font-label-md text-on-surface-variant block">Alamat Instalasi</label>
+                        <textarea name="alamat_instalasi" rows="3" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2 resize-none" placeholder="Jl. ..., Kelurahan, Kecamatan, Kota, Provinsi, Kode Pos">{{ old('alamat_instalasi') }}</textarea>
+                        @error('alamat_instalasi') <p class="text-error text-xs">{{ $message }}</p> @enderror
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-label-md text-on-surface-variant block">Kota</label>
+                        <input name="kota" value="{{ old('kota') }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="Contoh: Bontang" type="text">
+                        @error('kota') <p class="text-error text-xs">{{ $message }}</p> @enderror
                     </div>
                     <div class="space-y-1">
                         <label class="font-label-md text-on-surface-variant block">Jenis Usaha</label>
@@ -189,16 +205,66 @@
                         <input name="jenis_usaha_lainnya" value="{{ old('jenis_usaha_lainnya') }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="Sebutkan jenis usaha" type="text">
                         @error('jenis_usaha_lainnya') <p class="text-error text-xs">{{ $message }}</p> @enderror
                     </div>
+
+                    <div class="space-y-1 lg:col-span-2">
+                        <label class="font-label-md text-on-surface-variant block">Paket yang Dipilih</label>
+                        <select id="paket_id" name="paket_id" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2 bg-surface">
+                            <option value="">-- Pilih Paket --</option>
+                            <option value="konsultasi" {{ old('paket_id') == 'konsultasi' ? 'selected' : '' }}>-- Konsultasi Dulu (belum menentukan paket) --</option>
+                            @if(isset($paketGrouped) && $paketGrouped->count())
+                                @php
+                                    $order = ['HSI Bisnis','HSI Basic','WMS Lite','WMS Reguler'];
+                                @endphp
+                                @foreach($order as $grp)
+                                    @if(isset($paketGrouped[$grp]))
+                                        <optgroup label="{{ $grp }}">
+                                            @foreach($paketGrouped[$grp] as $p)
+                                                <option value="{{ $p->id }}" {{ old('paket_id') == $p->id ? 'selected' : '' }}>{{ $p->label }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endif
+                                @endforeach
+                                @if(isset($paketGrouped['KDMP']))
+                                    <optgroup label="KDMP (Paket Lengkap)">
+                                        @foreach($paketGrouped['KDMP'] as $p)
+                                            <option value="{{ $p->id }}" {{ old('paket_id') == $p->id ? 'selected' : '' }}>{{ $p->label }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endif
+                                @foreach($paketGrouped as $grpName => $items)
+                                    @if(!in_array($grpName, ['HSI Bisnis','HSI Basic','WMS Lite','WMS Reguler','KDMP']))
+                                        <optgroup label="{{ $grpName }}">
+                                            @foreach($items as $p)
+                                                <option value="{{ $p->id }}" {{ old('paket_id') == $p->id ? 'selected' : '' }}>{{ $p->label }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </select>
+                        @error('paket_id') <p class="text-error text-xs">{{ $message }}</p> @enderror
+                    </div>
                 </div>
             </section>
 
             <!-- Dokumen Persyaratan -->
             <section class="space-y-4">
                 <h2 class="font-label-md text-primary uppercase tracking-wider mb-2 font-semibold">Dokumen Persyaratan</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- KTP Upload -->
-                    <div class="space-y-1">
-                        <label class="font-label-md text-on-surface-variant block">Foto KTP</label>
+                {{-- Grid 2 kolom; setiap kolom terdiri dari 2 baris: [label] dan [kotak-upload].
+                     Dengan grid-rows dan row-span, semua label sejajar dan semua kotak sejajar. --}}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-0" id="upload-grid">
+
+                    {{-- Baris 1, Kolom 1: Label KTP --}}
+                    <div class="pb-1 pt-0 flex items-end" style="min-height:2.75rem;">
+                        <span class="font-label-md text-on-surface-variant">Foto KTP</span>
+                    </div>
+                    {{-- Baris 1, Kolom 2: Label NPWP --}}
+                    <div class="pb-1 pt-0 flex items-end" style="min-height:2.75rem;">
+                        <span class="font-label-md text-on-surface-variant">Foto NPWP / NIB / Dokumen Usaha Lainnya</span>
+                    </div>
+
+                    {{-- Baris 2, Kolom 1: Kotak Upload KTP --}}
+                    <div class="flex flex-col mb-6">
                         <div class="border-2 border-dashed border-outline rounded-lg bg-surface-container-low p-6 flex flex-col items-center justify-center gap-2 transition-colors hover:border-primary cursor-pointer group" onclick="document.getElementById('foto_ktp').click()">
                             <span class="material-symbols-outlined text-outline text-[28px] group-hover:text-primary transition-colors">upload_file</span>
                             <span class="font-label-md text-primary" id="foto_ktp_text">Ketuk untuk unggah</span>
@@ -206,29 +272,13 @@
                         <input type="file" id="foto_ktp" name="foto_ktp" accept="image/jpeg,image/png,application/pdf" onchange="updateFileName(this, 'foto_ktp_text')">
                         <div class="flex justify-between items-center px-1 pt-1">
                             <span class="font-body-md text-[12px] text-outline">Format JPG/PNG/PDF, maks 2MB</span>
-                            <button type="button" class="font-body-md text-[12px] text-primary font-semibold hover:underline" onclick="event.preventDefault(); event.stopPropagation(); openModal('Foto KTP')">Lihat contoh</button>
+                            <button type="button" class="font-body-md text-[12px] text-primary font-semibold hover:underline" onclick="event.preventDefault(); event.stopPropagation(); openModalType('ktp')">Lihat contoh</button>
                         </div>
-                        @error('foto_ktp') <p class="text-error text-xs">{{ $message }}</p> @enderror
+                        @error('foto_ktp') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
-                    <!-- Izin Usaha Upload -->
-                    <div class="space-y-1">
-                        <label class="font-label-md text-on-surface-variant block">Foto Surat Izin Usaha</label>
-                        <div class="border-2 border-dashed border-outline rounded-lg bg-surface-container-low p-6 flex flex-col items-center justify-center gap-2 transition-colors hover:border-primary cursor-pointer group" onclick="document.getElementById('foto_izin_usaha').click()">
-                            <span class="material-symbols-outlined text-outline text-[28px] group-hover:text-primary transition-colors">upload_file</span>
-                            <span class="font-label-md text-primary" id="foto_izin_usaha_text">Ketuk untuk unggah</span>
-                        </div>
-                        <input type="file" id="foto_izin_usaha" name="foto_izin_usaha" accept="image/jpeg,image/png,application/pdf" onchange="updateFileName(this, 'foto_izin_usaha_text')">
-                        <div class="flex justify-between items-center px-1 pt-1">
-                            <span class="font-body-md text-[12px] text-outline">Format JPG/PNG/PDF, maks 2MB</span>
-                            <button type="button" class="font-body-md text-[12px] text-primary font-semibold hover:underline" onclick="event.preventDefault(); event.stopPropagation(); openModal('Foto Surat Izin Usaha')">Lihat contoh</button>
-                        </div>
-                        @error('foto_izin_usaha') <p class="text-error text-xs">{{ $message }}</p> @enderror
-                    </div>
-
-                    <!-- NIB/NPWP Upload -->
-                    <div class="space-y-1">
-                        <label class="font-label-md text-on-surface-variant block">Foto NIB atau NPWP</label>
+                    {{-- Baris 2, Kolom 2: Kotak Upload NPWP --}}
+                    <div class="flex flex-col mb-6">
                         <div class="border-2 border-dashed border-outline rounded-lg bg-surface-container-low p-6 flex flex-col items-center justify-center gap-2 transition-colors hover:border-primary cursor-pointer group" onclick="document.getElementById('foto_nib_npwp').click()">
                             <span class="material-symbols-outlined text-outline text-[28px] group-hover:text-primary transition-colors">upload_file</span>
                             <span class="font-label-md text-primary" id="foto_nib_npwp_text">Ketuk untuk unggah</span>
@@ -236,14 +286,20 @@
                         <input type="file" id="foto_nib_npwp" name="foto_nib_npwp" accept="image/jpeg,image/png,application/pdf" onchange="updateFileName(this, 'foto_nib_npwp_text')">
                         <div class="flex justify-between items-center px-1 pt-1">
                             <span class="font-body-md text-[12px] text-outline">Format JPG/PNG/PDF, maks 2MB</span>
-                            <button type="button" class="font-body-md text-[12px] text-primary font-semibold hover:underline" onclick="event.preventDefault(); event.stopPropagation(); openModal('Foto NIB atau NPWP')">Lihat contoh</button>
+                            <button type="button" class="font-body-md text-[12px] text-primary font-semibold hover:underline" onclick="event.preventDefault(); event.stopPropagation(); openModalType('npwp')">Lihat contoh</button>
                         </div>
-                        @error('foto_nib_npwp') <p class="text-error text-xs">{{ $message }}</p> @enderror
+                        @error('foto_nib_npwp') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
-                    <!-- Foto Lokasi Upload -->
-                    <div class="space-y-1">
-                        <label class="font-label-md text-on-surface-variant block">Foto Lokasi Usaha (Tampak Depan)</label>
+                    {{-- Baris 3, Kolom 1: Label Tampak Depan --}}
+                    <div class="pb-1 pt-0 flex items-end" style="min-height:2.75rem;">
+                        <span class="font-label-md text-on-surface-variant">Foto Tampak Depan Usaha (Keseluruhan)</span>
+                    </div>
+                    {{-- Baris 3, Kolom 2: (kolom kosong agar label kolom 1 sejajar) --}}
+                    <div class="hidden lg:block" style="min-height:2.75rem;"></div>
+
+                    {{-- Baris 4, Kolom 1: Kotak Upload Tampak Depan --}}
+                    <div class="flex flex-col mb-6">
                         <div class="border-2 border-dashed border-outline rounded-lg bg-surface-container-low p-6 flex flex-col items-center justify-center gap-2 transition-colors hover:border-primary cursor-pointer group" onclick="document.getElementById('foto_lokasi').click()">
                             <span class="material-symbols-outlined text-outline text-[28px] group-hover:text-primary transition-colors">add_a_photo</span>
                             <span class="font-label-md text-primary" id="foto_lokasi_text">Ketuk untuk unggah</span>
@@ -251,10 +307,11 @@
                         <input type="file" id="foto_lokasi" name="foto_lokasi" accept="image/jpeg,image/png,application/pdf" onchange="updateFileName(this, 'foto_lokasi_text')">
                         <div class="flex justify-between items-center px-1 pt-1">
                             <span class="font-body-md text-[12px] text-outline">Format JPG/PNG/PDF, maks 2MB</span>
-                            <button type="button" class="font-body-md text-[12px] text-primary font-semibold hover:underline" onclick="event.preventDefault(); event.stopPropagation(); openModal('Foto Lokasi Usaha')">Lihat contoh</button>
+                            <button type="button" class="font-body-md text-[12px] text-primary font-semibold hover:underline" onclick="event.preventDefault(); event.stopPropagation(); openModalType('bangunan')">Lihat contoh</button>
                         </div>
-                        @error('foto_lokasi') <p class="text-error text-xs">{{ $message }}</p> @enderror
+                        @error('foto_lokasi') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
+
                 </div>
             </section>
 
@@ -264,6 +321,7 @@
                 
                 <input type="hidden" id="latitude" name="latitude" value="{{ old('latitude') }}">
                 <input type="hidden" id="longitude" name="longitude" value="{{ old('longitude') }}">
+                <input type="hidden" id="link_maps" name="link_maps" value="{{ old('link_maps') }}">
                 
                 <button type="button" id="btn-lokasi" class="w-full bg-surface border border-primary text-primary hover:bg-surface-container-low focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 py-[12px] px-4 rounded-lg flex items-center justify-center gap-2 font-label-md">
                     <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">my_location</span>
@@ -276,6 +334,13 @@
                     <span id="coords-display" class="font-body-md text-[12px] text-on-surface-variant bg-surface/90 px-2 py-1 rounded shadow-sm backdrop-blur-sm">
                         {{ old('latitude') ? 'Lat: '.old('latitude').', Long: '.old('longitude') : 'Titik belum ditentukan' }}
                     </span>
+                </div>
+
+                <div id="maps-link-container" class="text-center" style="display: {{ old('latitude') ? 'block' : 'none' }};">
+                    <a id="maps-link-display" href="{{ old('latitude') ? 'https://www.google.com/maps?q='.old('latitude').','.old('longitude') : '#' }}" target="_blank" class="font-body-md text-[12px] text-primary hover:underline flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined" style="font-size:14px;">open_in_new</span>
+                        Lihat di Google Maps
+                    </a>
                 </div>
                 
                 @error('latitude') <p class="text-error text-xs text-center">{{ $message }}</p> @enderror
@@ -292,29 +357,16 @@
     </main>
     
     <!-- Modal Panduan Foto -->
-    <div id="modal-panduan" class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center p-4">
-        <div class="bg-surface rounded-xl shadow-level-1 w-full max-w-md overflow-hidden flex flex-col max-h-[90vh]">
+    <div id="modal-panduan" class="fixed inset-0 z-50 hidden bg-black/50 items-center justify-center p-4" onclick="handleModalBackdropClick(event)">
+        <div class="bg-surface rounded-xl shadow-level-1 w-full max-w-xl overflow-hidden flex flex-col max-h-[92vh]" onclick="event.stopPropagation()">
             <div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface sticky top-0">
                 <h3 class="font-headline-md text-lg font-bold text-on-surface" id="modal-panduan-title">Panduan Foto</h3>
                 <button type="button" onclick="closeModal()" class="text-on-surface-variant hover:text-primary transition-colors">
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
-            <div class="p-6 overflow-y-auto space-y-6">
-                <div>
-                    <h4 class="font-label-md text-primary mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">check_circle</span> Contoh Benar</h4>
-                    <div class="bg-surface-container-low border border-outline-variant rounded-lg p-8 flex items-center justify-center text-on-surface-variant text-sm text-center">
-                        <!-- TODO: isi gambar contoh benar di sini nanti -->
-                        [Area Gambar Contoh Benar]
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-label-md text-error mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">cancel</span> Contoh Salah</h4>
-                    <div class="bg-surface-container-low border border-outline-variant rounded-lg p-8 flex items-center justify-center text-on-surface-variant text-sm text-center">
-                        <!-- TODO: isi gambar contoh salah di sini nanti -->
-                        [Area Gambar Contoh Salah]
-                    </div>
-                </div>
+            <div class="p-5 overflow-y-auto" id="modal-panduan-body">
+                <!-- Diisi dinamis via JS -->
             </div>
             <div class="px-6 py-4 border-t border-outline-variant bg-surface mt-auto">
                 <button type="button" onclick="closeModal()" class="w-full bg-surface border border-outline text-on-surface hover:bg-surface-container-low focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 py-[10px] px-4 rounded-lg font-label-md">Mengerti</button>
@@ -447,6 +499,11 @@
         document.getElementById('latitude').value = lat;
         document.getElementById('longitude').value = lng;
         document.getElementById('coords-display').innerText = 'Lat: ' + lat.toFixed(5) + ', Long: ' + lng.toFixed(5);
+        var mapsUrl = 'https://www.google.com/maps?q=' + lat + ',' + lng;
+        document.getElementById('link_maps').value = mapsUrl;
+        var mapsLink = document.getElementById('maps-link-display');
+        mapsLink.href = mapsUrl;
+        document.getElementById('maps-link-container').style.display = 'block';
     }
 
     marker.on('dragend', function (e) {
@@ -502,13 +559,25 @@
         }
 
         // Validate text fields
-        var requiredFields = ['kode_referral', 'nama_pemilik', 'nama_usaha', 'jenis_usaha'];
+        var requiredFields = ['kode_referral', 'nama_pemilik', 'nama_usaha', 'jenis_usaha', 'paket_id'];
         requiredFields.forEach(function(field) {
             var el = document.getElementsByName(field)[0];
             if (el && !el.value.trim()) {
                 showError(field, 'Field ini wajib diisi sebelum submit.');
             }
         });
+
+        // Kota validation
+        var kotaEl = document.getElementsByName('kota')[0];
+        if (kotaEl && !kotaEl.value.trim()) {
+            showError('kota', 'Kota wajib diisi sebelum submit.');
+        }
+
+        // Alamat instalasi validation
+        var alamatEl = document.getElementsByName('alamat_instalasi')[0];
+        if (alamatEl && !alamatEl.value.trim()) {
+            showError('alamat_instalasi', 'Alamat instalasi wajib diisi sebelum submit.');
+        }
 
         // Phone validation
         var noHpEl = document.getElementsByName('no_hp')[0];
@@ -530,7 +599,7 @@
         }
 
         // Validate file fields
-        var fileFields = ['foto_ktp', 'foto_izin_usaha', 'foto_nib_npwp', 'foto_lokasi'];
+        var fileFields = ['foto_ktp', 'foto_nib_npwp', 'foto_lokasi'];
         fileFields.forEach(function(field) {
             var el = document.getElementById(field);
             // Ignore if it has a value (valid)
@@ -585,14 +654,108 @@
         document.getElementById('pendaftaranForm').submit();
     }
 
-    // Modal logic
-    function openModal(title) {
-        document.getElementById('modal-panduan-title').innerText = 'Panduan ' + title;
+    // ============================================================
+    // Modal Panduan Foto — data per jenis dokumen
+    // ============================================================
+    var modalData = {
+        ktp: {
+            title: 'Panduan Foto KTP',
+            validImg: '{{ asset("images/panduan/ktp-valid.png") }}',
+            invalidImg: '{{ asset("images/panduan/ktp-invalid.png") }}',
+            validCriteria: [
+                'Data terbaca jelas, tidak blur',
+                'Seluruh bagian KTP terlihat (tidak terpotong)',
+                'Masa berlaku aktif (kecuali E-KTP seumur hidup)',
+                'Pencahayaan cukup, tidak silau'
+            ],
+            invalidCriteria: [
+                'Identitas rusak / buram',
+                'Masa berlaku sudah habis',
+                'Sebagian data atau foto tertutup',
+                'Blur, gelap, atau terpotong'
+            ]
+        },
+        npwp: {
+            title: 'Panduan Foto NPWP / NIB / Dokumen Usaha',
+            validImg: '{{ asset("images/panduan/npwp-valid.png") }}',
+            invalidImg: '{{ asset("images/panduan/npwp-invalid.png") }}',
+            validCriteria: [
+                'Data tampak jelas dan terbaca',
+                'Alamat pada dokumen sesuai dengan alamat instalasi',
+                'Data sesuai saat dicek di OSS'
+            ],
+            invalidCriteria: [
+                'Dokumen salah (bukan NPWP/NIB/izin usaha, misal malah PBB)',
+                'Buram / blur / tidak terbaca',
+                'Masa berlaku habis (expired)'
+            ]
+        },
+        bangunan: {
+            title: 'Panduan Foto Tampak Depan Usaha',
+            validImg: '{{ asset("images/panduan/bangunan-valid.png") }}',
+            invalidImg: '{{ asset("images/panduan/bangunan-invalid.png") }}',
+            validCriteria: [
+                'Bangunan tampak menyeluruh dari depan',
+                'Ada papan nama / logo usaha yang terlihat jelas',
+                'Foto asli hasil ambil langsung (bukan editing/Google Street View)',
+                'Gambar jelas dan terang'
+            ],
+            invalidCriteria: [
+                'Diambil dari Google Street View / hasil editing',
+                'Bangunan tidak terlihat jelas / dari terlalu jauh',
+                'Gelap / backlight / hanya sebagian bangunan',
+                'Tidak menampilkan bangunan yang akan dipasang internet'
+            ]
+        }
+    };
+
+    function openModalType(type) {
+        var data = modalData[type];
+        if (!data) return;
+
+        document.getElementById('modal-panduan-title').innerText = data.title;
+
+        var validList = data.validCriteria.map(function(c) {
+            return '<li class="flex items-start gap-1.5"><span class="text-[#16a34a] font-bold mt-0.5">&#10003;</span><span>' + c + '</span></li>';
+        }).join('');
+        var invalidList = data.invalidCriteria.map(function(c) {
+            return '<li class="flex items-start gap-1.5"><span class="text-[#ba1a1a] font-bold mt-0.5">&#10007;</span><span>' + c + '</span></li>';
+        }).join('');
+
+        document.getElementById('modal-panduan-body').innerHTML =
+            '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">'
+            + '<div>'
+            + '<div class="inline-flex items-center gap-1.5 bg-[#dcfce7] text-[#15803d] text-xs font-bold px-2.5 py-1 rounded-full mb-2">'
+            + '<span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> VALID'
+            + '</div>'
+            + '<div class="rounded-lg overflow-hidden border border-[#bbf7d0] mb-3" style="background:#f0fdf4;">'
+            + '<img src="' + data.validImg + '" alt="Contoh valid" class="w-full object-cover" style="max-height:180px;object-fit:cover;" onerror="this.style.display=\'none\'">'
+            + '</div>'
+            + '<ul class="space-y-1 text-sm text-on-surface font-body-md">' + validList + '</ul>'
+            + '</div>'
+            + '<div>'
+            + '<div class="inline-flex items-center gap-1.5 bg-[#fee2e2] text-[#ba1a1a] text-xs font-bold px-2.5 py-1 rounded-full mb-2">'
+            + '<span class="material-symbols-outlined" style="font-size:14px;">cancel</span> TIDAK VALID'
+            + '</div>'
+            + '<div class="rounded-lg overflow-hidden border border-[#fecaca] mb-3" style="background:#fef2f2;">'
+            + '<img src="' + data.invalidImg + '" alt="Contoh tidak valid" class="w-full object-cover" style="max-height:180px;object-fit:cover;" onerror="this.style.display=\'none\'">'
+            + '</div>'
+            + '<ul class="space-y-1 text-sm text-on-surface font-body-md">' + invalidList + '</ul>'
+            + '</div>'
+            + '</div>';
+
         var modal = document.getElementById('modal-panduan');
         modal.classList.remove('hidden');
         modal.classList.add('flex');
     }
-    
+
+    function handleModalBackdropClick(event) {
+        // Menutup modal jika klik di luar area modal (pada backdrop)
+        if (event.target === document.getElementById('modal-panduan')) {
+            closeModal();
+        }
+    }
+
     function closeModal() {
         var modal = document.getElementById('modal-panduan');
         modal.classList.remove('flex');

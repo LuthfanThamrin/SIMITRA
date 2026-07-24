@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Pendaftaran Berhasil</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-simitra.png') }}">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -100,6 +101,7 @@
 <body class="bg-[#f9f9fc] font-body-md text-body-md text-on-surface antialiased flex flex-col items-center justify-center min-h-screen px-4">
     
     <div class="w-full max-w-[390px] bg-surface rounded-xl shadow-level-1 p-8 text-center space-y-6">
+        <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-auto mx-auto">
         <div class="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4">
             <span class="material-symbols-outlined text-green-600 text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
         </div>

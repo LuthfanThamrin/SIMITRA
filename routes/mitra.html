@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="id" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        try {
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        "colors": {
+                            "on-tertiary-container": "#d7dbde",
+                            "on-secondary-fixed": "#410006",
+                            "surface-variant": "#e2e2e5",
+                            "outline": "#727782",
+                            "tertiary-fixed": "#e0e3e6",
+                            "inverse-on-surface": "#f0f0f3",
+                            "surface-tint": "#1b5ead",
+                            "secondary-container": "#da323d",
+                            "inverse-primary": "#a8c8ff",
+                            "tertiary-container": "#5c6063",
+                            "surface-dim": "#dadadc",
+                            "surface-container": "#eeeef0",
+                            "error": "#ba1a1a",
+                            "on-primary": "#ffffff",
+                            "on-primary-fixed": "#001b3d",
+                            "inverse-surface": "#2f3133",
+                            "surface-container-lowest": "#ffffff",
+                            "background": "#f9f9fc",
+                            "on-tertiary-fixed-variant": "#43474a",
+                            "on-primary-fixed-variant": "#00468a",
+                            "primary-fixed": "#d6e3ff",
+                            "surface": "#f9f9fc",
+                            "secondary-fixed": "#ffdad8",
+                            "on-error": "#ffffff",
+                            "on-surface-variant": "#424751",
+                            "surface-container-low": "#f3f3f6",
+                            "on-tertiary": "#ffffff",
+                            "primary-container": "#1d5fae",
+                            "on-tertiary-fixed": "#181c1e",
+                            "error-container": "#ffdad6",
+                            "surface-bright": "#f9f9fc",
+                            "surface-container-high": "#e8e8ea",
+                            "outline-variant": "#c2c6d3",
+                            "on-background": "#1a1c1e",
+                            "tertiary-fixed-dim": "#c3c7ca",
+                            "secondary": "#b71328",
+                            "primary": "#00478c",
+                            "on-secondary-fixed-variant": "#93001a",
+                            "on-secondary": "#ffffff",
+                            "on-secondary-container": "#fffbff",
+                            "on-surface": "#1a1c1e",
+                            "primary-fixed-dim": "#a8c8ff",
+                            "on-error-container": "#93000a",
+                            "tertiary": "#44484b",
+                            "surface-container-highest": "#e2e2e5",
+                            "secondary-fixed-dim": "#ffb3b0",
+                            "on-primary-container": "#c8dbff"
+                        },
+                        "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                        },
+                        "spacing": {
+                            "container-max-width": "1280px",
+                            "margin-mobile": "20px",
+                            "margin-desktop": "80px",
+                            "gutter": "24px",
+                            "footer-padding-y": "64px",
+                            "header-height": "72px"
+                        },
+                        "fontFamily": {
+                            "headline-lg-mobile": ["Comfortaa"],
+                            "label-md": ["Plus Jakarta Sans"],
+                            "headline-lg": ["Comfortaa"],
+                            "headline-xl": ["Comfortaa"],
+                            "headline-md": ["Comfortaa"],
+                            "body-md": ["Plus Jakarta Sans"],
+                            "body-lg": ["Plus Jakarta Sans"]
+                        },
+                        "fontSize": {
+                            "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                            "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                            "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                        }
+                    },
+                },
+            }
+        } catch (_e) {}
+    }catch(_e){}</script></head><body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+
+    <!-- TopNavBar -->
+    <header class="bg-surface flex justify-between items-center w-full px-8 md:px-16 h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm">
+        <div class="flex items-center gap-3">
+            <img src="https://lh3.googleusercontent.com/aida/AP1WRLvRJ-hfoRCMB2tTR7aryp5cVR5RRew2QWmsINjCfdY-osU3rVSwKK8_1CcQ19pXU17nt2UogPLbibWBekB5Agszq0SJE1OI1_JvMA6ALDDELBtT_4KJsgW04oUvncrIyRycKNddKoyWn4DO1ozHmKOGzA6DFFQAbKwFiqx4iZXFeCscVlVc10nJvG17Qtxs_DPPG8unZoIXzfoD6lhM1bWqn0mJ65j6n_s4aeaKu_xip3iJYQ1clNXAzAc" alt="SIMITRA Logo" class="h-10 w-10 object-contain">
+            <span class="font-headline-md text-primary tracking-tight">SIMITRA&nbsp;</span>
+        </div>
+        
+        <!-- Navigation Links (Desktop) -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="#" class="font-label-md text-secondary hover:text-primary transition-colors">Beranda</a>
+            <a href="#" class="font-label-md text-primary-container border-b-2 border-primary-container pb-1">Benefit</a>
+            <a href="#" class="font-label-md text-secondary hover:text-primary transition-colors">Bantuan</a>
+        </nav>
+
+        <div class="flex items-center gap-4">
+            <button class="bg-primary-container text-on-primary font-bold py-2 px-6 rounded-lg hover:brightness-90 transition-all active:scale-95 text-label-md">
+                Masuk Portal
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center py-16 px-4">
+        <div class="w-full max-w-2xl">
+            <!-- Header Text -->
+            <div class="text-center mb-10">
+                <h1 class="font-headline-xl text-primary lowercase mb-2">pendaftaran mitra baru</h1>
+                <p class="font-body-lg text-on-surface-variant max-w-md mx-auto">
+                    Bergabunglah bersama ekosistem SIMITRA INDIBIZ dan kembangkan potensi bisnis Anda melalui kolaborasi profesional.
+                </p>
+            </div>
+
+            <!-- Registration Card -->
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-8 md:p-12 shadow-sm relative overflow-hidden">
+                <!-- Visual Accent -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                
+                <form class="space-y-6 relative z-10" onsubmit="event.preventDefault(); alert('Pendaftaran dikirim!');">
+                    <!-- Row 1: Nama Lengkap & Alamat Email -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="full_name" class="font-label-md text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">person</span>
+                                Nama Lengkap
+                            </label>
+                            <input type="text" id="full_name" placeholder="Masukkan nama sesuai KTP" required="" class="w-full px-4 py-3 rounded-lg border border-outline focus:ring-2 focus:ring-primary-container focus:border-primary-container bg-surface outline-none transition-all placeholder:text-outline-variant">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="email" class="font-label-md text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">mail</span>
+                                Alamat Email
+                            </label>
+                            <input type="email" id="email" placeholder="contoh@domain.com" required="" class="w-full px-4 py-3 rounded-lg border border-outline focus:ring-2 focus:ring-primary-container focus:border-primary-container bg-surface outline-none transition-all placeholder:text-outline-variant">
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Alamat Lengkap -->
+                    <div class="space-y-2">
+                        <label for="address" class="font-label-md text-on-surface-variant flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm">location_on</span>
+                            Alamat Lengkap
+                        </label>
+                        <textarea id="address" rows="3" placeholder="Masukkan alamat lengkap domisili" required="" class="w-full px-4 py-3 rounded-lg border border-outline focus:ring-2 focus:ring-primary-container focus:border-primary-container bg-surface outline-none transition-all placeholder:text-outline-variant"></textarea>
+                    </div>
+
+                    <!-- Row 3: Bank Info (Split) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="bank_name" class="font-label-md text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">account_balance</span>
+                                Nama Bank
+                            </label>
+                            <input type="text" id="bank_name" placeholder="Contoh: Bank Mandiri" required="" class="w-full px-4 py-3 rounded-lg border border-outline focus:ring-2 focus:ring-primary-container focus:border-primary-container bg-surface outline-none transition-all placeholder:text-outline-variant">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="bank_account" class="font-label-md text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">payments</span>
+                                Nomor Rekening
+                            </label>
+                            <input type="text" id="bank_account" placeholder="Contoh: 1234567890" required="" class="w-full px-4 py-3 rounded-lg border border-outline focus:ring-2 focus:ring-primary-container focus:border-primary-container bg-surface outline-none transition-all placeholder:text-outline-variant">
+                        </div>
+                    </div>
+
+                    <!-- Row 4:-->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="password" class="font-label-md text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">lock</span>
+                                Kata Sandi
+                            </label>
+                            <div class="relative">
+                                <input type="password" id="password" placeholder="••••••••" required="" class="w-full px-4 py-3 rounded-lg border border-outline focus:ring-2 focus:ring-primary-container focus:border-primary-container bg-surface outline-none transition-all pr-12">
+                                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant hover:text-primary-container transition-colors">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="confirm_password" class="font-label-md text-on-surface-variant flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">verified_user</span>
+                                Konfirmasi Kata Sandi
+                            </label>
+                            <div class="relative">
+                                <input type="password" id="confirm_password" placeholder="••••••••" required="" class="w-full px-4 py-3 rounded-lg border border-outline focus:ring-2 focus:ring-primary-container focus:border-primary-container bg-surface outline-none transition-all pr-12">
+                                <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant hover:text-primary-container transition-colors">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Syarat & Ketentuan -->
+                    <div class="flex items-start gap-3 py-2">
+                        <input type="checkbox" id="terms" required="" class="mt-1 h-4 w-4 text-primary-container border-outline-variant rounded focus:ring-primary-container">
+                        <label for="terms" class="text-label-md text-on-surface-variant leading-tight">
+                            Saya menyetujui <a href="#" class="text-primary-container font-bold hover:underline">Syarat &amp; Ketentuan</a> serta <a href="#" class="text-primary-container font-bold hover:underline">Kebijakan Privasi</a> yang berlaku di SIMITRA.
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    </form></div></div></main></body></html>
