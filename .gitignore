@@ -17,3 +17,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+# File spec dokumentasi
+SIMITRA_*.md
+Sprint4_*.md
