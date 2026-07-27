@@ -8,22 +8,46 @@ use App\Models\Paket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Mail\PendaftaranPelangganBaru;
+use Illuminate\Support\Facades\Mail;
+use Filament\Notifications\Notification;
 
 class PendaftaranController extends Controller
 {
     public function create(Request $request)
     {
+        // Resolusi kode referral: URL menang atas session
+        $ref = $request->query('ref');
+
+        if ($ref) {
+            // Simpan/timpa ke session (link terbaru selalu menang)
+            session(['referral_code' => $ref]);
+        } else {
+            // Tidak ada di URL, ambil dari session jika ada
+            $ref = session('referral_code');
+        }
+
+        // Cari mitra valid berdasarkan kode referral
         $mitra = null;
-        if ($request->has('ref')) {
-            $mitra = User::where('kode_referral', $request->query('ref'))
+        if ($ref) {
+            $mitra = User::where('kode_referral', $ref)
                 ->where('role', 'mitra')
                 ->where('status_aktif', true)
+                ->where('status_pendaftaran', 'disetujui')
                 ->first();
+
+            // Kode ada tapi mitra tidak valid — hapus dari session agar tidak dipakai
+            if (!$mitra) {
+                session()->forget('referral_code');
+            }
         }
 
         $paketGrouped = Paket::where('aktif', true)->get()->groupBy('kategori');
 
-        return view('pendaftaran.create', compact('mitra', 'paketGrouped'));
+        return response()
+            ->view('pendaftaran.create', compact('mitra', 'paketGrouped'))
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Pragma', 'no-cache');
     }
 
     public function store(Request $request)
@@ -42,7 +66,7 @@ class PendaftaranController extends Controller
             'foto_lokasi'         => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'latitude'            => 'required|numeric',
             'longitude'           => 'required|numeric',
-            'kode_referral'       => 'required',
+            'kode_referral'       => 'nullable|string',
             'paket_id'            => 'required',
         ], [
             'nama_pemilik.required'        => 'Nama pemilik wajib diisi.',
@@ -75,18 +99,21 @@ class PendaftaranController extends Controller
             'longitude.required'           => 'Titik lokasi belum ditentukan. Silakan klik tombol Ambil Lokasi Saat Ini atau ketuk peta.',
             'latitude.numeric'             => 'Format lokasi tidak valid.',
             'longitude.numeric'            => 'Format lokasi tidak valid.',
-            'kode_referral.required'       => 'Kode referral wajib diisi.',
             'paket_id.required'            => 'Silakan pilih paket atau opsi konsultasi.',
         ]);
 
-        $mitra = User::where('kode_referral', $request->input('kode_referral'))
-            ->where('role', 'mitra')
-            ->where('status_aktif', true)
-            ->first();
+        // Resolusi mitra: prioritaskan kode dari form (hidden input), fallback ke session
+        $kodeReferral = $request->input('kode_referral') ?: session('referral_code');
 
-        if (!$mitra) {
-            return back()->withInput()->withErrors(['kode_referral' => 'Kode referral tidak valid atau mitra tidak aktif.']);
+        $mitra = null;
+        if ($kodeReferral) {
+            $mitra = User::where('kode_referral', $kodeReferral)
+                ->where('role', 'mitra')
+                ->where('status_aktif', true)
+                ->where('status_pendaftaran', 'disetujui')
+                ->first();
         }
+        // Mitra boleh null — pendaftaran tanpa mitra tetap diperbolehkan
 
         $latitude  = $request->input('latitude');
         $longitude = $request->input('longitude');
@@ -134,6 +161,30 @@ class PendaftaranController extends Controller
         }
 
         $pendaftaran->save();
+
+        try {
+            $adminEmail = config('mail.admin_email');
+            if ($adminEmail) {
+                Mail::to($adminEmail)->send(new PendaftaranPelangganBaru($pendaftaran));
+            }
+
+            $admins = User::where('role', 'admin')->get();
+            foreach ($admins as $admin) {
+                Notification::make()
+                    ->title('Pendaftaran Pelanggan Baru')
+                    ->body("{$pendaftaran->nama_pemilik} ({$pendaftaran->nama_usaha}) telah mendaftar.")
+                    ->info()
+                    ->actions([
+                        \Filament\Notifications\Actions\Action::make('view')
+                            ->label('Lihat')
+                            ->url('/admin/pendaftarans')
+                            ->button(),
+                    ])
+                    ->sendToDatabase($admin);
+            }
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Gagal mengirim notifikasi pendaftaran pelanggan baru: ' . $e->getMessage());
+        }
 
         return redirect()->route('daftar.berhasil')->with('success_id', $pendaftaran->id);
     }

@@ -7,9 +7,11 @@ use App\Services\KomisiService;
 
 class DetailKomisiMitra extends Widget
 {
+    protected int | string | array $columnSpan = 'full';
     protected static string $view = 'filament.mitra.widgets.detail-komisi-mitra';
     protected static ?int $sort = 2;
     protected static bool $isLazy = true;
+    protected static ?string $pollingInterval = '60s';
 
     public function getViewData(): array
     {

@@ -1,89 +1,186 @@
 <x-filament::page>
     <!-- Header -->
-    <div class="mb-6">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Komisi Saya</h1>
-        <p class="text-gray-600 dark:text-gray-300 mt-1">Ringkasan komisi dan riwayat pembayaran Anda</p>
+    <div class="mb-6 pt-2">
+        <h1 class="text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">Komisi Saya</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Ringkasan komisi dan riwayat pembayaran Anda</p>
     </div>
 
     <!-- Ringkasan (Summary) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-        <!-- Total Komisi - Highlighted -->
-        <div class="lg:col-span-1 bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-lg shadow">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-blue-100 mb-1">Total Komisi</p>
-                    <p class="text-3xl font-bold">Rp{{ number_format($totalKomisi, 0, ',', '.') }}</p>
+    <x-filament::section>
+        <!-- Baris Atas: Total Komisi -->
+        <div class="mb-6 text-center">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Komisi</h3>
+            <p class="mt-2 text-4xl font-bold text-primary-600 dark:text-primary-400">
+                Rp{{ number_format($totalKomisi, 0, ',', '.') }}
+            </p>
+        </div>
+
+        <!-- Baris Kedua: Komisi Dasar & Total Bonus -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="rounded-xl bg-gray-50 p-4 dark:bg-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="text-gray-400 dark:text-gray-500">
+                        <x-heroicon-o-currency-dollar class="w-6 h-6" />
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Komisi Dasar</p>
+                        <p class="text-xl font-bold text-gray-950 dark:text-white">Rp{{ number_format($komisiDasar, 0, ',', '.') }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ $komisi->jumlahTerpasang() }} pelanggan × Rp200.000</p>
+                    </div>
                 </div>
-                <div class="text-5xl opacity-20">💰</div>
+            </div>
+            
+            <div class="rounded-xl bg-gray-50 p-4 dark:bg-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="text-yellow-500 dark:text-yellow-400">
+                        <x-heroicon-o-sparkles class="w-6 h-6" />
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Bonus</p>
+                        <p class="text-xl font-bold text-gray-950 dark:text-white">Rp{{ number_format($totalBonus, 0, ',', '.') }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Dari {{ count($rincianBonus) }} bulan</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Komisi Dasar -->
-        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow">
-            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Komisi Dasar</p>
-            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">Rp{{ number_format($komisiDasar, 0, ',', '.') }}</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">{{ $komisi->jumlahTerpasang() }} pelanggan × Rp200.000</p>
-        </div>
-
-        <!-- Total Bonus -->
-        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow">
-            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Total Bonus</p>
-            <p class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">Rp{{ number_format($totalBonus, 0, ',', '.') }}</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Dari {{ count($rincianBonus) }} bulan</p>
-        </div>
-
-        <!-- Sudah Dibayar -->
-        <div class="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-700 p-6 rounded-lg shadow">
-            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Sudah Dibayar</p>
-            <p class="text-2xl font-bold text-green-700 dark:text-green-300">Rp{{ number_format($sudahDibayar, 0, ',', '.') }}</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">{{ count($riwayatPembayaran) }} kali pembayaran</p>
-        </div>
-
-        <!-- Sisa Belum Dibayar -->
-        <div class="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-700 p-6 rounded-lg shadow">
-            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Sisa Belum Dibayar</p>
-            <p class="text-2xl font-bold {{ $sisaBelumDibayar > 0 ? 'text-red-700 dark:text-red-400' : 'text-green-700 dark:text-green-300' }}">
-                Rp{{ number_format($sisaBelumDibayar, 0, ',', '.') }}
-            </p>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                {{ $sisaBelumDibayar > 0 ? 'Menunggu pembayaran' : 'Lunas' }}
-            </p>
-        </div>
-
-        <!-- Persentase Pembayaran -->
-        <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow">
-            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Progres Pembayaran</p>
-            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {{ $totalKomisi > 0 ? round(($sudahDibayar / $totalKomisi) * 100, 1) : 0 }}%
-            </p>
-            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-3">
-                <div
-                    class="bg-green-500 dark:bg-green-400 h-2 rounded-full transition-all"
-                    style="width: {{ $totalKomisi > 0 ? ($sudahDibayar / $totalKomisi) * 100 : 0 }}%"
-                ></div>
+        <!-- Baris Ketiga: Sudah Dibayar & Belum Dibayar -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="rounded-xl bg-gray-50 p-4 dark:bg-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="text-success-500 dark:text-success-400">
+                        <x-heroicon-o-check-circle class="w-6 h-6" />
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Sudah Dibayar</p>
+                        <p class="text-xl font-bold text-gray-950 dark:text-white">Rp{{ number_format($sudahDibayar, 0, ',', '.') }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ count($riwayatPembayaran) }} kali pembayaran</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rounded-xl bg-gray-50 p-4 dark:bg-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="text-danger-500 dark:text-danger-400">
+                        <x-heroicon-o-clock class="w-6 h-6" />
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Sisa Belum Dibayar</p>
+                        <p class="text-xl font-bold {{ $sisaBelumDibayar > 0 ? 'text-danger-600 dark:text-danger-400' : 'text-success-600 dark:text-success-400' }}">Rp{{ number_format($sisaBelumDibayar, 0, ',', '.') }}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            {{ $sisaBelumDibayar > 0 ? 'Menunggu pembayaran' : 'Lunas' }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <!-- Progres Pembayaran Kecil -->
+        <div class="flex flex-col gap-2 pt-4 border-t border-gray-200 dark:border-white/10">
+            <div class="flex justify-between text-sm">
+                <span class="text-gray-500 dark:text-gray-400">Progres Pembayaran</span>
+                <span class="font-medium text-gray-950 dark:text-white">
+                    {{ $totalKomisi > 0 ? round(($sudahDibayar / $totalKomisi) * 100, 1) : 0 }}%
+                </span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                <div class="bg-success-500 dark:bg-success-400 h-1.5 rounded-full"
+                     style="width: {{ $totalKomisi > 0 ? ($sudahDibayar / $totalKomisi) * 100 : 0 }}%"></div>
+            </div>
+        </div>
+    </x-filament::section>
 
     <!-- Progress Bonus Bulan Ini -->
-    <div class="bg-yellow-50 dark:bg-yellow-900/10 border-2 border-yellow-300 dark:border-yellow-600 p-6 rounded-lg mb-6">
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">📊 Progress Bonus Bulan Ini</h2>
-        <p class="text-gray-700 dark:text-gray-300 mb-4">{{ $progressBulanIni['deskripsi'] }}</p>
+    <x-filament::section class="mt-6" heading="Progress Bonus Bulan Ini" icon="heroicon-o-chart-bar">
+        @php
+            $jumlahBulanIni = $progressBulanIni['jumlah_bulan_ini'] ?? 0;
+            $scaleBulanIni = min($jumlahBulanIni, 5);
+        @endphp
+        <style>
+        @keyframes fire-outer-anim {
+            0% { transform: rotate(-45deg) scale(1) skewX(0deg); opacity: 0.9; }
+            50% { transform: rotate(-43deg) scale(1.05) skewX(3deg); opacity: 1; }
+            100% { transform: rotate(-47deg) scale(0.95) skewX(-3deg); opacity: 0.9; }
+        }
+        @keyframes fire-middle-anim {
+            0% { transform: rotate(-45deg) scale(1) skewY(0deg); opacity: 0.8; }
+            50% { transform: rotate(-48deg) scale(0.95) skewY(-2deg); opacity: 1; }
+            100% { transform: rotate(-42deg) scale(1.1) skewY(2deg); opacity: 0.8; }
+        }
+        @keyframes fire-inner-anim {
+            0% { transform: rotate(-45deg) scale(1); opacity: 0.9; }
+            50% { transform: rotate(-44deg) scale(1.1); opacity: 1; }
+            100% { transform: rotate(-46deg) scale(0.9); opacity: 0.9; }
+        }
+        .flame-base {
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(-45deg);
+            transform-origin: center center;
+            position: absolute;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        }
+        .flame-outer-lg { 
+            width: 32px; height: 32px; bottom: 4px;
+            background: linear-gradient(135deg, #dc2626, #f97316);
+            animation: fire-outer-anim 1.2s infinite alternate ease-in-out; 
+        }
+        .flame-middle-lg { 
+            width: 20px; height: 20px; bottom: 6px;
+            background: linear-gradient(135deg, #f97316, #facc15);
+            animation: fire-middle-anim 0.9s infinite alternate ease-in-out; 
+        }
+        .flame-inner-lg { 
+            width: 10px; height: 10px; bottom: 10px;
+            background: linear-gradient(135deg, #fde047, #ffffff);
+            animation: fire-inner-anim 0.7s infinite alternate ease-in-out; 
+        }
+        
+        .fire-scale-0 { transform: scale(0.4); filter: grayscale(100%) opacity(0.3); }
+        .fire-scale-1 { transform: scale(0.6); }
+        .fire-scale-2 { transform: scale(0.75); }
+        .fire-scale-3 { transform: scale(0.9); }
+        .fire-scale-4 { transform: scale(1.05); }
+        .fire-scale-5 { transform: scale(1.2); filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.6)); }
+        .fire-scale-0 .flame-base { animation: none !important; }
+        </style>
 
-        <!-- Progress Bar -->
-        <div class="space-y-2">
-            <div class="flex justify-between text-sm text-gray-600 dark:text-gray-300 mb-2">
-                <span class="font-medium">{{ $progressBulanIni['jumlah_bulan_ini'] }}/5 Pelanggan</span>
-                <span>{{ $progressBulanIni['sisa_menuju_kelipatan'] }} lagi</span>
+        <div class="flex items-center gap-4 mb-5">
+            <div class="relative w-12 h-12 flex items-end justify-center fire-scale-{{ $scaleBulanIni }} transition-transform duration-500 shrink-0">
+                <div class="flame-base flame-outer-lg"></div>
+                <div class="flame-base flame-middle-lg"></div>
+                <div class="flame-base flame-inner-lg"></div>
+                <span class="absolute z-10 text-xs font-bold text-white" style="bottom: 8px; text-shadow: 0 1px 2px rgba(0,0,0,0.9);">{{ $jumlahBulanIni }}</span>
             </div>
-            <div class="w-full bg-yellow-200 dark:bg-yellow-800 rounded-full h-4 overflow-hidden">
-                <div
-                    class="bg-gradient-to-r from-yellow-400 to-yellow-600 dark:from-yellow-400 dark:to-yellow-500 h-4 rounded-full transition-all duration-500"
-                    style="width: {{ min(100, ($progressBulanIni['jumlah_bulan_ini'] / 5) * 100) }}%"
-                ></div>
+            
+            <div class="flex-1">
+                @if($jumlahBulanIni >= 5)
+                    <div class="mb-2">
+                        <x-filament::badge color="success" class="animate-pulse">
+                            Bonus Tercapai!
+                        </x-filament::badge>
+                    </div>
+                @endif
+                <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                    @if($jumlahBulanIni >= 5)
+                        Selamat! Anda telah mencapai {{ $jumlahBulanIni }} pelanggan bulan ini dan berhak mendapatkan bonus.
+                    @else
+                        {{ $progressBulanIni['deskripsi'] }}
+                    @endif
+                </p>
             </div>
         </div>
-    </div>
+
+        <div class="space-y-2">
+            <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400 mb-2">
+                <span class="font-medium text-gray-950 dark:text-white">{{ $progressBulanIni['jumlah_bulan_ini'] }}/5 Pelanggan</span>
+                <span>{{ $progressBulanIni['sisa_menuju_kelipatan'] }} lagi</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                <div class="bg-primary-500 dark:bg-primary-400 h-2 rounded-full transition-all duration-500"
+                     style="width: {{ min(100, ($progressBulanIni['jumlah_bulan_ini'] / 5) * 100) }}%"></div>
+            </div>
+        </div>
+    </x-filament::section>
 
     <!-- Rincian Bonus per Bulan -->
     @if(count($rincianBonus) > 0)

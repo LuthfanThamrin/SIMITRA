@@ -69,6 +69,8 @@ class MitraPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s');
     }
 }

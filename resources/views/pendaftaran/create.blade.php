@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&amp;family=Plus+Jakarta+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -100,6 +100,15 @@
       }
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        .brand-simitra {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-weight: 700 !important;
+            color: #1D5FAE !important;
+        }
+        .header-font {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+        }
         .shadow-level-1 { box-shadow: 0 10px 25px rgba(15,23,42,0.08); }
         /* Hide file input text */
         input[type="file"] {
@@ -110,16 +119,16 @@
 <body class="bg-background font-body-md text-body-md text-on-surface antialiased flex flex-col items-center justify-start min-h-screen px-4 py-6 md:py-12">
 <div class="w-full max-w-full md:max-w-[600px] lg:max-w-[700px] bg-surface rounded-xl shadow-level-1 overflow-hidden flex flex-col">
     <!-- Header Minimalis -->
-    <header class="flex items-center gap-2 px-6 h-header-height border-b border-outline-variant bg-surface sticky top-0 z-10">
+    <header class="header-font flex items-center gap-2 px-6 h-header-height border-b border-outline-variant bg-surface sticky top-0 z-10">
         <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-auto object-contain">
-        <span class="font-headline-md text-[24px] font-bold text-primary">SIMITRA</span>
+        <span class="tracking-tight text-[24px] brand-simitra">SIMITRA</span>
     </header>
 
     <!-- Main Content -->
     <main class="flex-1 p-6 pb-12 space-y-8">
         <!-- Header Section -->
         <div class="space-y-2">
-            <h1 class="font-headline-lg text-[28px] font-bold text-on-background lowercase leading-tight">formulir pendaftaran indibiz</h1>
+            <h1 class="font-headline-lg text-[28px] font-bold text-on-background lowercase leading-tight" style="font-weight: 700;">formulir pendaftaran indibiz</h1>
             <p class="font-body-md text-on-surface-variant">Lengkapi data berikut untuk mendaftar</p>
             
             @if($mitra)
@@ -130,6 +139,12 @@
                 </p>
             </div>
             @endif
+
+            @if(session('error'))
+            <div class="bg-error-container text-on-error-container p-4 mt-4 rounded-lg border border-error text-sm">
+                {{ session('error') }}
+            </div>
+            @endif
         </div>
 
         <form id="pendaftaranForm" action="{{ route('daftar.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
@@ -137,8 +152,8 @@
 
             @if(!$mitra)
             <div class="space-y-1">
-                <label class="font-label-md text-on-surface-variant block">Kode Referral Mitra</label>
-                <input name="kode_referral" value="{{ old('kode_referral', request()->query('ref')) }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="Masukkan kode referral" type="text">
+                <label class="font-label-md text-on-surface-variant block">Kode Referral Mitra <span class="text-outline font-normal">(opsional)</span></label>
+                <input name="kode_referral" value="{{ old('kode_referral', request()->query('ref', session('referral_code'))) }}" class="w-full border-outline rounded text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary px-4 py-2" placeholder="Kosongkan jika tidak ada kode" type="text">
                 @error('kode_referral')
                     <p class="text-error text-xs mt-1">{{ $message }}</p>
                 @enderror

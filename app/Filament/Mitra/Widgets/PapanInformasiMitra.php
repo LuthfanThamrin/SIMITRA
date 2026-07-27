@@ -9,7 +9,7 @@ class PapanInformasiMitra extends Widget
 {
     protected static string $view = 'filament.mitra.widgets.papan-informasi-mitra';
 
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 4;
 
     protected int | string | array $columnSpan = 'full';
 

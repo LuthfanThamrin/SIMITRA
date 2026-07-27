@@ -9,6 +9,15 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">try{tailwind.config={darkMode:'class',theme:{extend:{colors:{primary:'#1D5FAE','primary-container':'#d6e3ff',secondary:'#b71328',background:'#ffffff',surface:'#f9f9fc','on-background':'#1a1c1e','on-surface':'#1a1c1e','on-surface-variant':'#424751','outline-variant':'#e2e2e5'},fontFamily:{headline:['Comfortaa','sans-serif'],body:['Comfortaa','sans-serif']},spacing:{'container-max-width':'1280px'}}}}}catch(_e){};</script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        .brand-simitra {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-weight: 700 !important;
+            color: #1D5FAE !important;
+        }
+        .header-font {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+        }
         body { font-family: 'Comfortaa', sans-serif; }
         .nav-link-underline::after {
             content: '';
@@ -24,10 +33,10 @@
     </style>
 </head>
 <body class="bg-background text-on-background overflow-x-hidden">
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant w-full px-6 md:px-20 h-20 flex justify-between items-center transition-all duration-300">
+    <header class="header-font bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant w-full px-6 md:px-20 h-20 flex justify-between items-center transition-all duration-300">
         <div class="flex items-center gap-3">
             <img alt="SIMITRA Logo" class="h-10 w-auto" src="{{ asset('images/logo-simitra.png') }}">
-            <span class="text-xl font-bold tracking-tight" style="color: #1D5FAE; font-family: var(--font-family, 'Comfortaa', sans-serif);">SIMITRA</span>
+            <span class="text-xl tracking-tight brand-simitra">SIMITRA</span>
         </div>
         <nav class="hidden md:flex items-center gap-10 font-medium">
             <a class="text-on-background hover:text-primary transition-colors relative nav-link-underline" href="#beranda">Beranda</a>
@@ -52,11 +61,11 @@
                         <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
                         Official indibiz Partner
                     </div>
-                    <h1 class="text-5xl md:text-7xl font-bold text-on-background leading-[1.1] lowercase">
+                    <h1 class="text-5xl md:text-7xl font-bold text-on-background leading-[1.1] lowercase" style="font-weight: 700;">
                         solusi cerdas untuk bisnis anda
                     </h1>
                     <p class="text-xl text-on-surface-variant max-w-xl leading-relaxed">
-                        SIMITRA menyediakan infrastruktur bisnis internet modern untuk membantu perusahaan berkembang di era digital dengan ekosistem yang transparan.
+                       SIMITRA memudahkan pendaftaran layanan internet bisnis INDIBIZ sekaligus menjadi wadah kemitraan bagi agen yang ingin berkembang bersama.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a class="flex items-center justify-center bg-primary hover:bg-primary/90 text-white px-10 py-5 rounded-full font-bold text-lg shadow-xl shadow-primary/25 transition-all hover:-translate-y-1" href="{{ url('/daftar-mitra') }}">
@@ -147,17 +156,6 @@
                 <p class="text-white/60 max-w-sm leading-relaxed">
                     Penyedia solusi bisnis internet terpadu di Indonesia. Memberdayakan UMKM dan korporasi melalui ekosistem digital yang transparan dan handal.
                 </p>
-                <div class="flex gap-4">
-                    <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all" href="#">
-                        <span class="material-symbols-outlined text-xl">share</span>
-                    </a>
-                    <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all" href="#">
-                        <span class="material-symbols-outlined text-xl">groups</span>
-                    </a>
-                    <a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all" href="#">
-                        <span class="material-symbols-outlined text-xl">public</span>
-                    </a>
-                </div>
             </div>
             
             <div class="space-y-6">
@@ -165,7 +163,7 @@
                 <ul class="space-y-4 text-white/60">
                     <li class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">mail</span>
-                        <span>support@simitra.co.id</span>
+                        <span>simitra003@gmail.com</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <span class="material-symbols-outlined text-primary">location_on</span>

@@ -27,4 +27,15 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof \Illuminate\Session\TokenMismatchException) {
+            if ($request->is('daftar')) {
+                return redirect('/daftar')->with('error', 'Sesi Anda telah berakhir, silakan isi form kembali.');
+            }
+        }
+
+        return parent::render($request, $e);
+    }
 }

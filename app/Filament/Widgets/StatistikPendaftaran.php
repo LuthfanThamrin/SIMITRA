@@ -8,6 +8,7 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class StatistikPendaftaran extends BaseWidget
 {
     protected static ?int $sort = 1;
+    protected static ?string $pollingInterval = '60s';
 
     protected function getStats(): array
     {

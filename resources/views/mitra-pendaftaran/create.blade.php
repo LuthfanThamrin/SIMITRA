@@ -31,6 +31,15 @@
         }
     } catch (_e) {} catch (_e) {};</script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        .brand-simitra {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-weight: 700 !important;
+            color: #1D5FAE !important;
+        }
+        .header-font {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+        }
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
         .input-error { border-color: #dc2626; }
@@ -48,15 +57,15 @@
     </style>
 </head>
 <body class="bg-background text-on-background min-h-screen font-body">
-    <header class="flex justify-between items-center w-full px-8 md:px-16 h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm" style="background-color: #ffffff;">
+    <header class="header-font flex justify-between items-center w-full px-8 md:px-16 h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm" style="background-color: #ffffff;">
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA Logo" class="h-10 w-10 object-contain">
-            <span class="font-headline text-primary tracking-tight text-xl">SIMITRA</span>
+            <span class="tracking-tight text-xl brand-simitra">SIMITRA</span>
         </div>
 
-        <nav class="hidden md:flex items-center gap-8">
-            <a href="{{ url('/') }}" class="font-semibold text-secondary hover:text-primary transition-colors">Beranda</a>
-            <a href="#form" class="font-semibold text-primary border-b-2 border-primary pb-1">Daftar Mitra</a>
+        <nav class="hidden md:flex items-center gap-8 font-medium">
+            <a href="{{ url('/') }}" class="text-on-background hover:text-primary transition-colors">Beranda</a>
+            <a href="#form" class="text-on-background hover:text-primary transition-colors">Daftar Mitra</a>
         </nav>
 
         <div class="flex items-center gap-4">
@@ -72,9 +81,9 @@
     <main class="flex-grow flex items-center justify-center py-16 px-4">
         <div class="w-full max-w-4xl">
             <div class="text-center mb-10">
-                <h1 class="font-headline text-4xl md:text-5xl font-bold text-primary lowercase mb-2" style="font-family: 'Comfortaa', sans-serif;">pendaftaran mitra baru</h1>
+                <h1 class="font-headline text-4xl md:text-5xl font-bold text-primary lowercase mb-2" style="font-family: 'Comfortaa', sans-serif; font-weight: 700;">pendaftaran mitra baru</h1>
                 <p class="text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto">
-                    Bergabunglah bersama ekosistem SIMITRA INDIBIZ dan kembangkan potensi bisnis Anda melalui kolaborasi profesional.
+                    Bergabunglah bersama ekosistem INDIBIZ dan kembangkan potensi bisnis Anda melalui kolaborasi profesional.
                 </p>
             </div>
 

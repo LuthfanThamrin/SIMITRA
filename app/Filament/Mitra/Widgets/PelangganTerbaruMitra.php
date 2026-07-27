@@ -8,7 +8,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class PelangganTerbaruMitra extends BaseWidget
 {
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 3;
     protected int | string | array $columnSpan = 'full';
     protected static ?string $heading = 'Pelanggan Terbaru';
 
