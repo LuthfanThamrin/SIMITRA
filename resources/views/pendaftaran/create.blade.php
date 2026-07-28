@@ -120,7 +120,7 @@
 <div class="w-full max-w-full md:max-w-[600px] lg:max-w-[700px] bg-surface rounded-xl shadow-level-1 overflow-hidden flex flex-col">
     <!-- Header Minimalis -->
     <header class="header-font flex items-center gap-2 px-6 h-header-height border-b border-outline-variant bg-surface sticky top-0 z-10">
-        <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-auto object-contain">
+        <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-10 object-contain">
         <span class="tracking-tight text-[24px] brand-simitra">SIMITRA</span>
     </header>
 
@@ -413,7 +413,7 @@
     
     <!-- Footer Minimalis -->
     <footer class="bg-surface-container-low border-t border-outline-variant py-footer-padding-y text-center px-6 mt-auto">
-        <p class="font-body-md text-[12px] text-outline">© 2024 INDIBIZ SIMITRA. All rights reserved.</p>
+        <p class="font-body-md text-[12px] text-outline">© 2026 SIMITRA. All rights reserved.</p>
     </footer>
 </div>
 

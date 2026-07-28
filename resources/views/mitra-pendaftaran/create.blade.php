@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendaftaran Mitra SIMITRA</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-simitra.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">try {
@@ -59,7 +60,7 @@
 <body class="bg-background text-on-background min-h-screen font-body">
     <header class="header-font flex justify-between items-center w-full px-8 md:px-16 h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm" style="background-color: #ffffff;">
         <div class="flex items-center gap-3">
-            <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA Logo" class="h-10 w-10 object-contain">
+            <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-10 object-contain">
             <span class="tracking-tight text-xl brand-simitra">SIMITRA</span>
         </div>
 
