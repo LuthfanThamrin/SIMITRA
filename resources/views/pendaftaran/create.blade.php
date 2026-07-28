@@ -656,14 +656,27 @@
     function submitFormConfirmed() {
         closeConfirmModal();
         
+        // Disable main submit button & show inline spinner
+        var btnSubmit = document.getElementById('btn-submit');
+        var btnSubmitText = document.getElementById('btn-submit-text');
+        var btnSubmitSpinner = document.getElementById('btn-submit-spinner');
+        
+        if (btnSubmit) {
+            btnSubmit.disabled = true;
+        }
+        if (btnSubmitText) {
+            btnSubmitText.textContent = 'Memproses & Mengompresi Foto...';
+        }
+        if (btnSubmitSpinner) {
+            btnSubmitSpinner.classList.remove('hidden');
+        }
+        
         // Show loading overlay
         var overlay = document.getElementById('overlay-loading');
-        overlay.classList.remove('hidden');
-        overlay.classList.add('flex');
-        
-        // Disable main submit button
-        var btnSubmit = document.getElementById('btn-submit');
-        if (btnSubmit) btnSubmit.disabled = true;
+        if (overlay) {
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
         
         // Actually submit the form
         document.getElementById('pendaftaranForm').submit();

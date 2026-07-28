@@ -16,6 +16,7 @@ class PembayaranKomisi extends Model
         'jumlah',
         'tanggal_bayar',
         'catatan',
+        'bukti_pembayaran',
     ];
 
     protected $casts = [

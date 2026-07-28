@@ -148,6 +148,15 @@ class RekapKomisiResource extends Resource
                                         ->label('Catatan')
                                         ->placeholder('Opsional')
                                         ->maxLength(255),
+
+                                    Forms\Components\FileUpload::make('bukti_pembayaran')
+                                        ->label('Bukti Pembayaran')
+                                        ->image()
+                                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg'])
+                                        ->maxSize(2048)
+                                        ->directory('bukti-pembayaran')
+                                        ->disk('public')
+                                        ->helperText('Format JPG/PNG, maksimal 2MB (Opsional)'),
                                 ]),
                         ];
                     })
@@ -165,11 +174,34 @@ class RekapKomisiResource extends Resource
                             return;
                         }
 
+                        $buktiPath = $data['bukti_pembayaran'] ?? null;
+
+                        // Kompresi bukti pembayaran jika file gambar diunggah
+                        if ($buktiPath) {
+                            try {
+                                $fullPath = \Illuminate\Support\Facades\Storage::disk('public')->path($buktiPath);
+                                if (file_exists($fullPath)) {
+                                    $img = \Intervention\Image\ImageManagerStatic::make($fullPath);
+                                    if ($img->width() > 1280) {
+                                        $img->resize(1280, null, function ($constraint) {
+                                            $constraint->aspectRatio();
+                                            $constraint->upsize();
+                                        });
+                                    }
+                                    $img->save($fullPath, 80);
+                                }
+                            } catch (\Exception $e) {
+                                \Illuminate\Support\Facades\Log::error('Gagal kompresi bukti pembayaran: ' . $e->getMessage());
+                                // Fallback: biarkan file asli tersimpan
+                            }
+                        }
+
                         PembayaranKomisi::create([
                             'mitra_id' => $record->id,
                             'jumlah' => $jumlah,
                             'tanggal_bayar' => $data['tanggal_bayar'],
                             'catatan' => $data['catatan'] ?? null,
+                            'bukti_pembayaran' => $buktiPath,
                         ]);
 
                         \Filament\Notifications\Notification::make()

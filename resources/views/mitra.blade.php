@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMITRA | Mitra</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-simitra.png') }}">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -74,7 +75,7 @@
                     </div>
                 </div>
                 <div class="relative hidden lg:block">
-                    <img alt="SIMITRA Business Analytics" class="w-full h-auto rounded-[3rem] shadow-2xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhNne3I6qFYrDywJ2OFlFftF4fY6fp6CgEAWpA6t8Cb2eS_dcQLNJm-aBO0Ujsd_nPY_aFzH069Qp7zXcZZomq3egy4qJ3LNnr5nRQpduECId8B-IpBnQBxXPKshylYdxAkT0bbrmLmbcCRNU8ftCvfhBz19-FNdEVZQFTiA9784XsA7iU87tDxXW7FpV1KPS5KmSV27BFfFYdCF4tQriKCw7XsiyV0OVVcyyXKoOOfk3D-yaGjk4N" />
+                    <img alt="SIMITRA" class="w-full h-auto object-cover rounded-[3rem] shadow-2xl" src="{{ asset('images/Landing-page.png') }}" />
                 </div>
             </div>
         </section>

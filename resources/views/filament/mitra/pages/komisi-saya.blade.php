@@ -231,23 +231,35 @@
                             <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-200">Tanggal Bayar</th>
                             <th class="px-6 py-3 text-right font-semibold text-gray-900 dark:text-gray-200">Jumlah</th>
                             <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-200">Catatan</th>
+                            <th class="px-6 py-3 text-center font-semibold text-gray-900 dark:text-gray-200">Bukti Pembayaran</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($riwayatPembayaran as $pembayaran)
                             <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 align-middle">
                                     <span class="font-medium text-gray-900 dark:text-gray-100">
                                         {{ $pembayaran->tanggal_bayar->locale('id')->translatedFormat('d F Y') }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 text-right">
+                                <td class="px-6 py-4 text-right align-middle">
                                     <span class="font-semibold text-green-700 dark:text-green-300">
                                         Rp{{ number_format($pembayaran->jumlah, 0, ',', '.') }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 text-gray-600 dark:text-gray-300">
+                                <td class="px-6 py-4 text-gray-600 dark:text-gray-300 align-middle">
                                     {{ $pembayaran->catatan ?? '-' }}
+                                </td>
+                                <td class="px-6 py-4 text-center align-middle">
+                                    @if($pembayaran->bukti_pembayaran)
+                                        <a href="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}" target="_blank" class="inline-block group" title="Klik untuk memperbesar">
+                                            <img src="{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}" 
+                                                 alt="Bukti Transfer" 
+                                                 class="h-12 w-16 object-cover rounded border border-gray-200 dark:border-gray-700 shadow-sm group-hover:scale-105 group-hover:shadow transition duration-150 mx-auto">
+                                        </a>
+                                    @else
+                                        <span class="text-xs text-gray-400 dark:text-gray-500 font-normal">-</span>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

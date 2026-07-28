@@ -135,10 +135,10 @@ class PendaftaranController extends Controller
         $pendaftaran->status               = 'pending';
         $pendaftaran->foto_izin_usaha      = null;
 
-        // Upload files
-        $pendaftaran->foto_ktp       = $request->file('foto_ktp')->store('pendaftaran', 'public');
-        $pendaftaran->foto_nib_npwp  = $request->file('foto_nib_npwp')->store('pendaftaran', 'public');
-        $pendaftaran->foto_lokasi    = $request->file('foto_lokasi')->store('pendaftaran', 'public');
+        // Upload & Compress files
+        $pendaftaran->foto_ktp       = $this->compressAndStorePhoto($request->file('foto_ktp'));
+        $pendaftaran->foto_nib_npwp  = $this->compressAndStorePhoto($request->file('foto_nib_npwp'));
+        $pendaftaran->foto_lokasi    = $this->compressAndStorePhoto($request->file('foto_lokasi'));
 
         // Paket handling
         $paketInput = $request->input('paket_id');
@@ -192,5 +192,50 @@ class PendaftaranController extends Controller
     public function success()
     {
         return view('pendaftaran.success');
+    }
+
+    /**
+     * Kompres dan simpan foto pendaftaran (KTP, NPWP/NIB, Foto Lokasi)
+     */
+    private function compressAndStorePhoto($file)
+    {
+        if (!$file || !$file->isValid()) {
+            return null;
+        }
+
+        $extension = strtolower($file->getClientOriginalExtension());
+        $fileSize  = $file->getSize(); // ukuran file dalam byte
+
+        // Jika file berupa PDF atau ukurannya < 500 KB (512,000 bytes), simpan langsung tanpa kompresi
+        if ($extension === 'pdf' || $fileSize < 524288) {
+            return $file->store('pendaftaran', 'public');
+        }
+
+        try {
+            $img = \Intervention\Image\ImageManagerStatic::make($file->getRealPath());
+
+            // Resize jika lebar gambar lebih besar dari 1280px (pertahankan aspect ratio)
+            if ($img->width() > 1280) {
+                $img->resize(1280, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+            }
+
+            // Encode ke format JPEG dengan kualitas 80%
+            $compressedStream = $img->encode('jpg', 80);
+
+            // Generate nama file acak unik
+            $filename = 'pendaftaran/' . Str::random(40) . '.jpg';
+
+            // Simpan ke disk public
+            Storage::disk('public')->put($filename, (string) $compressedStream);
+
+            return $filename;
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Gagal kompresi foto pendaftaran: ' . $e->getMessage());
+            // Fallback: simpan file asli jika kompresi gagal
+            return $file->store('pendaftaran', 'public');
+        }
     }
 }

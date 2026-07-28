@@ -9,6 +9,7 @@
         "doctrine/dbal": "^3.10",
         "filament/filament": ">=3.2.100 <4.0",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "2.7",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
