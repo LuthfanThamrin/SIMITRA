@@ -40,7 +40,7 @@ class MitraPanelProvider extends PanelProvider
                 PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
                 fn (): string => Blade::render(<<<'HTML'
                     <div class="text-center mt-4">
-                        <a href="/daftar-mitra" class="text-sm text-primary-600 hover:underline">&larr; Kembali ke Beranda</a>
+                        <a href="/" class="text-sm text-primary-600 hover:underline">&larr; Kembali ke Beranda</a>
                     </div>
                 HTML
                 )

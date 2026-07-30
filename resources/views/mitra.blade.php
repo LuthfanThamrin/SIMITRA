@@ -34,11 +34,11 @@
     </style>
 </head>
 <body class="bg-background text-on-background overflow-x-hidden">
-    <header class="header-font bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant w-full px-6 md:px-20 h-20 flex justify-between items-center transition-all duration-300">
-        <div class="flex items-center gap-3">
-            <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-10 object-contain">
-            <span class="text-xl tracking-tight brand-simitra">SIMITRA</span>
-        </div>
+    <header class="header-font bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant w-full px-4 sm:px-6 md:px-20 h-20 flex justify-between items-center transition-all duration-300">
+        <a href="{{ url('/') }}" class="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-opacity">
+            <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-9 w-9 sm:h-10 sm:w-10 object-contain">
+            <span class="text-lg sm:text-xl tracking-tight brand-simitra">SIMITRA</span>
+        </a>
         <nav class="hidden md:flex items-center gap-10 font-medium">
             <a class="text-on-background hover:text-primary transition-colors relative nav-link-underline" href="#beranda">Beranda</a>
             <a class="text-on-background hover:text-primary transition-colors relative nav-link-underline" href="#benefit">Benefit</a>

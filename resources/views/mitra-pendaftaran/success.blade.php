@@ -39,10 +39,10 @@
 <body class="bg-background text-on-background min-h-screen">
     <div class="min-h-screen flex flex-col items-center justify-center px-4 py-16">
         <div class="w-full max-w-2xl bg-surface border border-outline-variant rounded-3xl p-10 md:p-14 shadow-sm text-center">
-            <div class="flex items-center justify-center gap-3 mb-8">
+            <a href="{{ url('/') }}" class="flex items-center justify-center gap-3 mb-8 hover:opacity-90 transition-opacity">
                 <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA Logo" class="h-12 w-auto object-contain">
                 <span class="font-headline text-2xl text-primary tracking-tight">SIMITRA</span>
-            </div>
+            </a>
             <div class="mb-8">
                 <h1 class="font-headline text-4xl text-primary lowercase mb-4">Pendaftaran Berhasil Dikirim</h1>
                 <p class="text-base md:text-lg text-on-surface-variant max-w-xl mx-auto leading-relaxed">

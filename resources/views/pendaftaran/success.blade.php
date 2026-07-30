@@ -101,7 +101,9 @@
 <body class="bg-[#f9f9fc] font-body-md text-body-md text-on-surface antialiased flex flex-col items-center justify-center min-h-screen px-4">
     
     <div class="w-full max-w-[390px] bg-surface rounded-xl shadow-level-1 p-8 text-center space-y-6">
-        <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-auto mx-auto">
+        <a href="{{ url('/') }}" class="inline-block hover:opacity-90 transition-opacity">
+            <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-auto mx-auto">
+        </a>
         <div class="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4">
             <span class="material-symbols-outlined text-green-600 text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
         </div>

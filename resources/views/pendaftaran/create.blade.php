@@ -119,9 +119,15 @@
 <body class="bg-background font-body-md text-body-md text-on-surface antialiased flex flex-col items-center justify-start min-h-screen px-4 py-6 md:py-12">
 <div class="w-full max-w-full md:max-w-[600px] lg:max-w-[700px] bg-surface rounded-xl shadow-level-1 overflow-hidden flex flex-col">
     <!-- Header Minimalis -->
-    <header class="header-font flex items-center gap-2 px-6 h-header-height border-b border-outline-variant bg-surface sticky top-0 z-10">
-        <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-10 object-contain">
-        <span class="tracking-tight text-[24px] brand-simitra">SIMITRA</span>
+    <header class="header-font flex items-center justify-between px-4 sm:px-6 h-header-height border-b border-outline-variant bg-surface sticky top-0 z-10">
+        <a href="{{ url('/') }}" class="flex items-center gap-2 hover:opacity-90 transition-opacity">
+            <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-9 w-9 sm:h-10 sm:w-10 object-contain">
+            <span class="tracking-tight text-[20px] sm:text-[24px] brand-simitra">SIMITRA</span>
+        </a>
+        <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary hover:text-primary/80 bg-primary/10 hover:bg-primary/20 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg transition-colors">
+            <span class="material-symbols-outlined text-sm sm:text-base">home</span>
+            <span>Beranda</span>
+        </a>
     </header>
 
     <!-- Main Content -->

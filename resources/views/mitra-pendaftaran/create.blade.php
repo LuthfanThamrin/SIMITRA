@@ -58,22 +58,26 @@
     </style>
 </head>
 <body class="bg-background text-on-background min-h-screen font-body">
-    <header class="header-font flex justify-between items-center w-full px-8 md:px-16 h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm" style="background-color: #ffffff;">
-        <div class="flex items-center gap-3">
-            <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-10 w-10 object-contain">
-            <span class="tracking-tight text-xl brand-simitra">SIMITRA</span>
-        </div>
+    <header class="header-font flex flex-wrap sm:flex-nowrap justify-between items-center w-full px-4 sm:px-8 md:px-16 py-2.5 sm:py-0 min-h-16 sticky top-0 z-50 border-b border-outline-variant shadow-sm" style="background-color: #ffffff;">
+        <a href="{{ url('/') }}" class="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-opacity">
+            <img src="{{ asset('images/logo-simitra.png') }}" alt="SIMITRA" class="h-8 w-8 sm:h-10 sm:w-10 object-contain">
+            <span class="tracking-tight text-lg sm:text-xl brand-simitra">SIMITRA</span>
+        </a>
 
         <nav class="hidden md:flex items-center gap-8 font-medium">
             <a href="{{ url('/') }}" class="text-on-background hover:text-primary transition-colors">Beranda</a>
             <a href="#form" class="text-on-background hover:text-primary transition-colors">Daftar Mitra</a>
         </nav>
 
-        <div class="flex items-center gap-4">
-            <a href="{{ url('/daftar-mitra') }}" class="bg-primary text-white font-bold py-2 px-6 rounded-lg hover:brightness-90 transition-all active:scale-95 inline-block" style="background-color: #1D5FAE; color: #ffffff;">
+        <div class="flex items-center gap-2 sm:gap-3 max-w-full">
+            <a href="{{ url('/') }}" class="md:hidden inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary/80 bg-primary/10 px-2.5 py-1.5 rounded-lg transition-colors">
+                <span class="material-symbols-outlined text-sm">home</span>
+                <span>Beranda</span>
+            </a>
+            <a href="{{ url('/daftar-mitra') }}" class="bg-primary text-white font-bold py-1.5 px-3 sm:py-2 sm:px-5 text-xs sm:text-sm md:text-base rounded-lg hover:brightness-90 transition-all active:scale-95 inline-block whitespace-nowrap" style="background-color: #1D5FAE; color: #ffffff;">
                 Daftar Sekarang
             </a>
-            <a href="{{ url('/mitra/login') }}" class="bg-primary-container text-primary font-bold py-2 px-6 rounded-lg hover:brightness-90 transition-all active:scale-95 inline-block" style="background-color: #d6e3ff; color: #1D5FAE;">
+            <a href="{{ url('/mitra/login') }}" class="bg-primary-container text-primary font-bold py-1.5 px-3 sm:py-2 sm:px-5 text-xs sm:text-sm md:text-base rounded-lg hover:brightness-90 transition-all active:scale-95 inline-block whitespace-nowrap" style="background-color: #d6e3ff; color: #1D5FAE;">
                 Login
             </a>
         </div>
@@ -200,9 +204,9 @@
                     </div>
 
                     <div class="flex items-start gap-3 py-2">
-                        <input type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }} required class="mt-1 h-4 w-4 text-primary border-outline-variant rounded focus:ring-primary">
-                        <label for="terms" class="text-sm text-on-surface-variant leading-tight">
-                            Saya menyetujui <a href="#" class="text-primary font-semibold hover:underline">Syarat & Ketentuan</a> serta <a href="#" class="text-primary font-semibold hover:underline">Kebijakan Privasi</a> yang berlaku di SIMITRA.
+                        <input type="checkbox" name="terms" id="terms" {{ old('terms') ? 'checked' : '' }} required class="mt-1 h-4 w-4 text-primary border-outline-variant rounded focus:ring-primary cursor-pointer">
+                        <label for="terms" class="text-sm text-on-surface-variant leading-tight cursor-pointer">
+                            Saya menyetujui <span class="text-primary font-semibold">Syarat & Ketentuan</span> serta <span class="text-primary font-semibold">Kebijakan Privasi</span> yang berlaku di SIMITRA.
                         </label>
                     </div>
                     @error('terms')

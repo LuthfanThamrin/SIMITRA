@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use BaconQrCode\Encoder\Encoder;
+use BaconQrCode\Common\ErrorCorrectionLevel;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class MitraQrController extends Controller
 {
     /**
-     * Generate a composite SVG card and return it as a downloadable file.
+     * Generate a composite PNG card and return it as a downloadable file.
      *
-     * Layout (400 x 500 px, white background):
-     *   y=52   – "SIMITRA" (bold, blue, 28px)
+     * Layout (400 x 500 px PNG card, white background):
+     *   y=48   – "SIMITRA" (bold, blue, 28px)
      *   y=80   – "Kode Referral Mitra" (gray, 14px)
-     *   y=100  – QR code 300×300 (centered: translate(50,100))
+     *   y=100  – QR code 300×300 (centered: x=50, y=100)
      *   y=415  – thin separator line
-     *   y=456  – referral code text (bold, blue, 26px)
-     *   y=486  – URL hint (gray, 11px)
+     *   y=440  – referral code text (bold, blue, 26px)
      */
     public function download(Request $request)
     {
@@ -28,66 +30,131 @@ class MitraQrController extends Controller
 
         $kodeReferral = $user->kode_referral;
         $linkReferral = url('/daftar?ref=' . $kodeReferral);
+        $filename = 'QR_Referral_' . $kodeReferral . '.png';
 
-        // 1. Generate QR SVG dari package (margin(0) = tepat 300×300 px)
-        $qrRaw = (string) QrCode::format('svg')->size(300)->margin(0)->generate($linkReferral);
+        try {
+            // 1. Generate QR Code matrix using BaconQrCode Encoder (works natively with GD)
+            $qrCode = Encoder::encode($linkReferral, ErrorCorrectionLevel::L());
+            $matrix = $qrCode->getMatrix();
+            $matrixSize = $matrix->getWidth();
 
-        // 2. Ekstrak isi di dalam <svg>…</svg> saja
-        $qrInner = $qrRaw;
-        if (preg_match('/<svg[^>]*>(.*)<\/svg>/s', $qrRaw, $m)) {
-            $qrInner = $m[1];
+            $qrPixelSize = 300;
+            $marginModules = 1;
+            $totalModules = $matrixSize + ($marginModules * 2);
+            $modulePixelSize = (int) floor($qrPixelSize / $totalModules);
+            $actualQrSize = $modulePixelSize * $totalModules;
+
+            $qrImg = imagecreatetruecolor($actualQrSize, $actualQrSize);
+            $white = imagecolorallocate($qrImg, 255, 255, 255);
+            $black = imagecolorallocate($qrImg, 0, 0, 0);
+            imagefill($qrImg, 0, 0, $white);
+
+            for ($y = 0; $y < $matrixSize; $y++) {
+                for ($x = 0; $x < $matrixSize; $x++) {
+                    if ($matrix->get($x, $y) === 1) {
+                        $px = ($x + $marginModules) * $modulePixelSize;
+                        $py = ($y + $marginModules) * $modulePixelSize;
+                        imagefilledrectangle($qrImg, $px, $py, $px + $modulePixelSize - 1, $py + $modulePixelSize - 1, $black);
+                    }
+                }
+            }
+
+            // 2. Build Card Canvas 400x500 using Intervention Image
+            $canvas = Image::canvas(400, 500, '#ffffff');
+
+            ob_start();
+            imagepng($qrImg);
+            $qrPngData = ob_get_clean();
+            imagedestroy($qrImg);
+
+            $qrIntervention = Image::make($qrPngData)->resize(300, 300);
+
+            // Insert QR Code at x=50, y=100
+            $canvas->insert($qrIntervention, 'top-left', 50, 100);
+
+            // Locate system TTF fonts if available
+            $fontPath = null;
+            $possibleFonts = [
+                'C:\\Windows\\Fonts\\arial.ttf',
+                'C:\\Windows\\Fonts\\segoeui.ttf',
+                '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+            ];
+            foreach ($possibleFonts as $f) {
+                if (file_exists($f)) {
+                    $fontPath = $f;
+                    break;
+                }
+            }
+
+            $fontBoldPath = null;
+            $possibleBoldFonts = [
+                'C:\\Windows\\Fonts\\arialbd.ttf',
+                'C:\\Windows\\Fonts\\segoeuib.ttf',
+                '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
+            ];
+            foreach ($possibleBoldFonts as $f) {
+                if (file_exists($f)) {
+                    $fontBoldPath = $f;
+                    break;
+                }
+            }
+            if (! $fontBoldPath) {
+                $fontBoldPath = $fontPath;
+            }
+
+            // Header "SIMITRA"
+            $canvas->text('SIMITRA', 200, 48, function ($font) use ($fontBoldPath) {
+                if ($fontBoldPath) {
+                    $font->file($fontBoldPath);
+                }
+                $font->size(28);
+                $font->color('#1D5FAE');
+                $font->align('center');
+                $font->valign('top');
+            });
+
+            // Subtitle "Kode Referral Mitra"
+            $canvas->text('Kode Referral Mitra', 200, 80, function ($font) use ($fontPath) {
+                if ($fontPath) {
+                    $font->file($fontPath);
+                }
+                $font->size(14);
+                $font->color('#555555');
+                $font->align('center');
+                $font->valign('top');
+            });
+
+            // Line separator y=415
+            $canvas->line(60, 415, 340, 415, function ($draw) {
+                $draw->color('#DDDDDD');
+            });
+
+            // Kode Referral text y=440
+            $canvas->text($kodeReferral, 200, 440, function ($font) use ($fontBoldPath) {
+                if ($fontBoldPath) {
+                    $font->file($fontBoldPath);
+                }
+                $font->size(26);
+                $font->color('#1D5FAE');
+                $font->align('center');
+                $font->valign('top');
+            });
+
+            $pngContent = (string) $canvas->encode('png');
+
+            return response($pngContent)
+                ->header('Content-Type', 'image/png')
+                ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        } catch (\Throwable $e) {
+            // Fallback to simple QrCode PNG if available
+            try {
+                $qrPng = QrCode::format('png')->size(400)->margin(1)->generate($linkReferral);
+                return response($qrPng)
+                    ->header('Content-Type', 'image/png')
+                    ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+            } catch (\Throwable $ex) {
+                abort(500, 'Gagal mendownload QR PNG: ' . $ex->getMessage());
+            }
         }
-
-        // 3. Escape kode referral agar aman di dalam XML
-        $kodeEsc = htmlspecialchars($kodeReferral, ENT_XML1 | ENT_QUOTES, 'UTF-8');
-
-        // 4. Bangun kanvas SVG 400×500 dengan concatenation
-        $w = 400;
-        $h = 500;
-        // QR 300 px, di-translate ke x=(400-300)/2=50, y=100
-        $tx = 50;
-        $ty = 100;
-
-        $svg = '';
-        $svg .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-        $svg .= '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"';
-        $svg .= ' width="' . $w . '" height="' . $h . '"';
-        $svg .= ' viewBox="0 0 ' . $w . ' ' . $h . '">' . "\n";
-
-        // Latar putih
-        $svg .= '  <rect width="' . $w . '" height="' . $h . '" fill="#ffffff"/>' . "\n";
-
-        // Judul
-        $svg .= '  <text x="200" y="52" text-anchor="middle"';
-        $svg .= ' font-family="Arial, Helvetica, sans-serif"';
-        $svg .= ' font-size="28" font-weight="bold" fill="#1D5FAE">SIMITRA</text>' . "\n";
-
-        // Subjudul
-        $svg .= '  <text x="200" y="80" text-anchor="middle"';
-        $svg .= ' font-family="Arial, Helvetica, sans-serif"';
-        $svg .= ' font-size="14" fill="#555555">Kode Referral Mitra</text>' . "\n";
-
-        // QR code (di-center via translate)
-        $svg .= '  <g transform="translate(' . $tx . ',' . $ty . ')">' . "\n";
-        $svg .= '    ' . $qrInner . "\n";
-        $svg .= '  </g>' . "\n";
-
-        // Garis pemisah
-        $svg .= '  <line x1="60" y1="415" x2="340" y2="415"';
-        $svg .= ' stroke="#DDDDDD" stroke-width="1"/>' . "\n";
-
-        // Kode referral (besar, bold)
-        $svg .= '  <text x="200" y="456" text-anchor="middle"';
-        $svg .= ' font-family="Arial, Helvetica, sans-serif"';
-        $svg .= ' font-size="26" font-weight="bold" fill="#1D5FAE"';
-        $svg .= ' letter-spacing="2">' . $kodeEsc . '</text>' . "\n";
-
-        $svg .= '</svg>';
-
-        $filename = 'QR_Referral_' . $kodeReferral . '.svg';
-
-        return response($svg, 200)
-            ->header('Content-Type', 'image/svg+xml')
-            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
     }
 }
